@@ -22,4 +22,4 @@ jobs:
           poetry-version: 1.4.2
 
       - name: Build and publish
-        run: poetry mkdocs gh-deploy --force
+        run: poetry run mkdocs gh-deploy --force
