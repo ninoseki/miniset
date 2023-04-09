@@ -10,7 +10,7 @@ from jinja2.lexer import Token, TokenStream
 class SqlExtension(Extension):
     """SQL extension for Jinja2"""
 
-    def extract_param_name(self, tokens: list[Token]) -> str:
+    def extract_param_name(self, tokens: List[Token]) -> str:
         """Extract param names
 
         Args:
