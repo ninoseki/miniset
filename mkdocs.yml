@@ -7,9 +7,11 @@ plugins:
   search:
   autorefs:
   mkdocstrings:
-    handler: python
-    options:
-      show_root_heading: true
+    default_handler: python
+    handlers:
+      python:
+        options:
+          show_root_heading: true
 
 markdown_extensions:
   - admonition

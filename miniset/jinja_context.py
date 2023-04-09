@@ -15,7 +15,7 @@ from markupsafe import Markup
 from . import types
 from .exceptions import MinisetTemplateException
 from .extensions import SqlExtension
-from .filters import build_identifier_filter
+from .filters import build_identifier_filter, sql_safe
 
 NONE_TYPE = type(None).__name__
 ALLOWED_TYPES = (
@@ -72,11 +72,6 @@ def validate_context_types(context: Dict[str, Any]) -> Dict[str, Any]:
             )
 
     return context
-
-
-def sql_safe(value):
-    """Filter to mark the value of an expression as safe for inserting in a SQL statement."""
-    return Markup(value)
 
 
 class JinjaTemplateProcessor:
@@ -142,7 +137,8 @@ class JinjaTemplateProcessor:
             query (Union[str, Template]): A query string/template
 
         Returns:
-            Tuple[str, Union[List[Any], Dict[str, Any]]]: A tuple of prepared query and bind params
+            query (str): A prepared query
+            bind_params (Union[List[Any], Dict[str, Any]]): Bind params
         """
         template: Template = (
             query if isinstance(query, Template) else self._env.from_string(query)
@@ -152,7 +148,6 @@ class JinjaTemplateProcessor:
     def _prepare_query(
         self, template: Template, **kwargs: Any
     ) -> Tuple[str, Union[List[Any], Dict[str, Any]]]:
-        """Prepare an SQL template"""
         kwargs.update(self._context)
         context = validate_context_types(kwargs)
 

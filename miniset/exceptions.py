@@ -44,4 +44,6 @@ class MinisetException(Exception):
 
 
 class MinisetTemplateException(MinisetException):
+    """Miniset template exception"""
+
     pass
