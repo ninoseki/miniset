@@ -33,7 +33,7 @@ ALLOWED_TYPES = (
 )
 
 
-PARAM_STYLE_TO_PLACEHOLDER: dict[str, Callable[[str, int], str]] = {
+PARAM_STYLE_TO_PLACEHOLDER: Dict[str, Callable[[str, int], str]] = {
     "qmark": lambda _k, _i: "?",
     "format": lambda _k, _i: "%s",
     "numeric": lambda _k, i: f":{i}",
@@ -51,7 +51,7 @@ def list_cast(bind_params: OrderedDict) -> List[Any]:
     return list(bind_params.values())
 
 
-PARAM_STYLE_TO_CAST: dict[
+PARAM_STYLE_TO_CAST: Dict[
     str, Callable[[OrderedDict], Union[Dict[Any, Any], List[Any]]]
 ] = {
     "qmark": list_cast,
