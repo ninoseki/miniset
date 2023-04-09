@@ -1,6 +1,6 @@
 # miniset
 
-[![PyPI version](https://badge.fury.io/py/miniset.svg)](https://badge.fury.io/py/miniset)
+[![PyPI version](https://badge.fury.io/py/mini-set.svg)](https://badge.fury.io/py/mini-set)
 [![Test](https://github.com/ninoseki/miniset/actions/workflows/test.yml/badge.svg)](https://github.com/ninoseki/miniset/actions/workflows/test.yml)
 
 A Jinja2 template processor for interacting with an SQL engine.
