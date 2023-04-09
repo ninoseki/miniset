@@ -4,6 +4,12 @@ version = "0.0.0"
 description = "A Jinja2 template processor for interacting with an SQL engine"
 authors = ["Manabu Niseki <manabu.niseki@gmail.com>"]
 readme = "README.md"
+homepage = "https://github.com/ninoseki/miniset"
+repository = "https://github.com/ninoseki/miniset"
+documentation = "https://ninoseki.github.io/miniset/"
+packages = [
+    { include = "miniset" }
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"

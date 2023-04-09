@@ -37,13 +37,12 @@ class SqlExtension(Extension):
         return name
 
     def filter_stream(self, stream: TokenStream) -> Generator[Token, None, None]:
-        """Convert {{ some.variable | filter1 | filter 2}} to {{ ( some.variable | filter1 | filter 2 ) | bind}} for all variable declarations in the template
+        """Convert `{{ some.variable | filter1 | filter 2 }}` to `{{ ( some.variable | filter1 | filter 2 ) | bind }}` for all variable declarations in the template
 
         Note the extra ( and ). We want the | bind to apply to the entire value, not just the last value.
-        The parentheses are mostly redundant, except in expressions like {{ '%' ~ myval ~ '%' }}
+        The parentheses are mostly redundant, except in expressions like `{{ '%' ~ myval ~ '%' }}`
 
-        This function is called by jinja2 immediately
-        after the lexing stage, but before the parser is called.
+        This function is called by Jinja2 immediately after the lexing stage, but before the parser is called.
 
         Args:
             stream (TokenStream): Token stream

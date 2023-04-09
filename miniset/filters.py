@@ -44,9 +44,27 @@ def dummy_where_in(values: List[Any], mark: str = "'") -> str:
     return f"({joined_values})"
 
 
+def sql_safe(value: Any) -> Markup:
+    """Filter to mark the value of an expression as safe for inserting in a SQL statement
+
+    Args:
+        value (Any): Value
+
+    Returns:
+        Markup: Markup
+    """
+    return Markup(value)
+
+
 def build_identifier_filter(
     identifier_quote_character: types.IdentifierQuoteCharacterType,
 ):
+    """Build identifier filter based on a quote character
+
+    Args:
+        identifier_quote_character (types.IdentifierQuoteCharacterType): Quote character for identifier
+    """
+
     def quote_and_escape(value: str):
         # Escape double quote with 2 double quotes,
         # or escape backtick with 2 backticks
