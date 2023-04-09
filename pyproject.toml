@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "miniset"
+name = "mini-set"
 version = "0.0.0"
 description = "A Jinja2 template processor for interacting with an SQL engine"
 authors = ["Manabu Niseki <manabu.niseki@gmail.com>"]

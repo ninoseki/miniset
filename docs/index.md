@@ -11,7 +11,7 @@ A Jinja2 template processor for interacting with an SQL engine.
 ## Installation
 
 ```bash
-pip install miniset
+pip install mini-set
 ```
 
 ## Basic Usage
