@@ -1,0 +1,3 @@
+# Exceptions
+
+::: miniset.exceptions

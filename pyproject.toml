@@ -1,0 +1,46 @@
+[tool.poetry]
+name = "miniset"
+version = "0.0.0"
+description = "A Jinja2 template processor for interacting with an SQL engine"
+authors = ["Manabu Niseki <manabu.niseki@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+jinja2 = ">=3.1,<4.0"
+typing-extensions = ">=4.5,<5.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+mypy = "^1.2.0"
+pre-commit = "^3.2.2"
+pytest = "^7.2.2"
+pytest-pretty = "^1.2.0"
+pytest-randomly = "^3.12.0"
+sqlmodel = "^0.0.8"
+
+[tool.poetry.group.doc.dependencies]
+mkdocs = "^1.4.2"
+mkdocs-material = "^9.1.6"
+mkdocstrings = {extras = ["python"], version = "^0.21.2"}
+
+[tool.poetry-dynamic-versioning]
+enable = true
+
+[build-system]
+requires = ["poetry-core", "poetry-dynamic-versioning"]
+build-backend = "poetry_dynamic_versioning.backend"
+
+[tool.ruff]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    # "I",    # isort
+    "C",    # flake8-comprehensions
+    "B",    # flake8-bugbear
+    "T20",  # flake8-print
+]
+ignore = [
+    "E501",  # line too long, handled by black
+]

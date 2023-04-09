@@ -1,0 +1,17 @@
+site_name: Miniset
+
+theme:
+  name: "material"
+
+plugins:
+  search:
+  autorefs:
+  mkdocstrings:
+    handler: python
+    options:
+      show_root_heading: true
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
