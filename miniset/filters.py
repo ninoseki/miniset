@@ -38,6 +38,7 @@ def dummy_where_in(values: List[Any], mark: str = "'") -> str:
         if isinstance(value, str):
             value = value.replace(mark, mark * 2)
             return f"{mark}{value}{mark}"
+
         return str(value)
 
     joined_values = ", ".join(quote(value) for value in values)
