@@ -14,11 +14,11 @@ class MinisetException(Exception):
         exception: Optional[Exception] = None,
         error_type: Optional[str] = None,
     ) -> None:
-        if message:
-            self.message = message
+        self.message = message
 
         self._exception = exception
         self._error_type = error_type
+
         super().__init__(self.message)
 
     @property
@@ -30,7 +30,8 @@ class MinisetException(Exception):
         return self._error_type
 
     def to_dict(self) -> Dict[str, Any]:
-        rv = {}
+        rv: Dict[str, Any] = {}
+
         if hasattr(self, "message"):
             rv["message"] = self.message
 

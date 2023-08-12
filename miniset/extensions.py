@@ -24,12 +24,11 @@ class SqlExtension(Extension):
         for token in tokens:
             if token.test("variable_begin"):
                 continue
-            elif token.test("name"):
+
+            if token.test("name") or token.test("dot"):
                 name += token.value
-            elif token.test("dot"):
-                name += token.value
-            else:
-                break
+
+            break
 
         if not name:
             name = "bind#0"
