@@ -82,6 +82,13 @@ class JinjaTemplateProcessor:
         identifier_quote_character: types.IdentifierQuoteCharacterType = '"',
         env: Optional[Environment] = None,
     ) -> None:
+        """Initialize the template processor.
+
+        Args:
+            param_style (types.ParamStyleType, optional): Parameter style. Defaults to "format".
+            identifier_quote_character (types.IdentifierQuoteCharacterType, optional): Identifier for quote character. Defaults to '"'.
+            env (Optional[Environment], optional): Jinja2 environment. Defaults to None.
+        """
         self._context: Dict[str, Any] = {}
 
         self._env = env or SandboxedEnvironment(undefined=DebugUndefined)
