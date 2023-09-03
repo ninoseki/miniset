@@ -16,7 +16,7 @@ pip install mini-set
 
 ## Basic Usage
 
-First, import `JinjaTemplateProcessor` class from `miniset` and create an object.
+First, import `JinjaTemplateProcessor` class from `miniset` and create a processor.
 
 ```py
 from miniset import JinjaTemplateProcessor
@@ -28,8 +28,8 @@ Next, call `prepare_query` method with a Jinja2 template and keyword arguments. 
 
 The method returns:
 
-- `query` is the generated SQL query. Variables are replaced by `%s`
-- `bind_params` is a list of parameters corresponding to the` %s`
+- `query` is the generated SQL query. Variables are replaced by `%s`.
+- `bind_params` is a list of parameters corresponding to the `%s`.
 
 ```py
 query, bind_params = p.prepare_query(
@@ -56,12 +56,12 @@ SELECT * FROM projects WHERE name = %s OR project_id IN (%s,%s)
 
 A placeholder for a bind param can be specified in multiple ways.
 
-- `format` : ... where name = `%s`. This is the default.
-- `qmark`: where name = `?`
-- `numeric`: where name = `:1` and last_name = `:2`
-- `named`: where name = `:name` and last_name = `:last_name`
-- `pyformat`: where name = `%(name)s` and last_name = `%(last_name)s`
-- `asyncpg`: where name = `$1` and last_name = `$2`
+- `format`: where name = `%s`. This is the default.
+- `qmark`: where name = `?`.
+- `numeric`: where name = `:1` and last_name = `:2`.
+- `named`: where name = `:name` and last_name = `:last_name`.
+- `pyformat`: where name = `%(name)s` and last_name = `%(last_name)s`.
+- `asyncpg`: where name = `$1` and last_name = `$2`.
 
 You can pass the optional constructor argument `param_style` to control the style of query parameter.
 
