@@ -6,7 +6,7 @@ A Jinja2 template processor for interacting with an SQL engine.
 
 ## Requirements
 
-- Python 3.8+
+- Python 3.9+
 
 ## Installation
 
