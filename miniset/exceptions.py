@@ -1,9 +1,9 @@
 # Forked from https://github.com/apache/superset
 # https://github.com/apache/superset/blob/master/LICENSE.txt
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 
-class MinisetException(Exception):
+class MinisetException(Exception):  # noqa: N818
     """Base exception class for Miniset"""
 
     message: str = ""
@@ -29,8 +29,8 @@ class MinisetException(Exception):
     def error_type(self) -> Optional[str]:
         return self._error_type
 
-    def to_dict(self) -> Dict[str, Any]:
-        rv: Dict[str, Any] = {}
+    def to_dict(self) -> dict[str, Any]:
+        rv: dict[str, Any] = {}
 
         if hasattr(self, "message"):
             rv["message"] = self.message

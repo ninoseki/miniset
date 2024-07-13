@@ -4,7 +4,8 @@
 # Forked from https://github.com/sripathikrishnan/jinjasql
 # The original version was created by Sripathi Krishnan and HashedIn Technologies Pvt. Ltd.
 # https://github.com/sripathikrishnan/jinjasql/blob/master/LICENSE
-from typing import Any, Iterable, List, Union
+from collections.abc import Iterable
+from typing import Any, Union
 
 from markupsafe import Markup
 
@@ -23,7 +24,7 @@ def dummy_sql_safe(value: Any) -> Any:
     return value
 
 
-def dummy_where_in(values: List[Any], mark: str = "'") -> str:
+def dummy_where_in(values: list[Any], mark: str = "'") -> str:
     """Dummy where_in filter for linting
 
     Args:

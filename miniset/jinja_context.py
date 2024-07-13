@@ -5,8 +5,9 @@
 # The original version was created by Sripathi Krishnan and HashedIn Technologies Pvt. Ltd.
 # https://github.com/sripathikrishnan/jinjasql/blob/master/LICENSE
 from collections import OrderedDict
+from collections.abc import Generator
 from contextlib import contextmanager
-from typing import Any, Callable, Dict, Generator, List, Optional, Tuple, Union
+from typing import Any, Callable, Optional, Union
 
 from jinja2 import DebugUndefined, Environment, Template
 from jinja2.sandbox import SandboxedEnvironment
@@ -33,7 +34,7 @@ ALLOWED_TYPES = (
 )
 
 
-PARAM_STYLE_TO_PLACEHOLDER: Dict[str, Callable[[str, int], str]] = {
+PARAM_STYLE_TO_PLACEHOLDER: dict[types.ParamStyleType, Callable[[str, int], str]] = {
     "qmark": lambda _k, _i: "?",
     "format": lambda _k, _i: "%s",
     "numeric": lambda _k, i: f":{i}",
@@ -43,16 +44,16 @@ PARAM_STYLE_TO_PLACEHOLDER: Dict[str, Callable[[str, int], str]] = {
 }
 
 
-def dict_cast(bind_params: OrderedDict) -> Dict[Any, Any]:
+def dict_cast(bind_params: OrderedDict) -> dict[Any, Any]:
     return dict(bind_params)
 
 
-def list_cast(bind_params: OrderedDict) -> List[Any]:
+def list_cast(bind_params: OrderedDict) -> list[Any]:
     return list(bind_params.values())
 
 
-PARAM_STYLE_TO_CAST: Dict[
-    str, Callable[[OrderedDict], Union[Dict[Any, Any], List[Any]]]
+PARAM_STYLE_TO_CAST: dict[
+    types.ParamStyleType, Callable[[OrderedDict], Union[dict[Any, Any], list[Any]]]
 ] = {
     "qmark": list_cast,
     "format": list_cast,
@@ -63,7 +64,7 @@ PARAM_STYLE_TO_CAST: Dict[
 }
 
 
-def validate_context_types(context: Dict[str, Any]) -> Dict[str, Any]:
+def validate_context_types(context: dict[str, Any]) -> dict[str, Any]:
     for key in context:
         arg_type = type(context[key]).__name__
         if arg_type not in ALLOWED_TYPES:
@@ -89,7 +90,7 @@ class JinjaTemplateProcessor:
             identifier_quote_character (types.IdentifierQuoteCharacterType, optional): Identifier for quote character. Defaults to '"'.
             env (Optional[Environment], optional): Jinja2 environment. Defaults to None.
         """
-        self._context: Dict[str, Any] = {}
+        self._context: dict[str, Any] = {}
 
         self._env = env or SandboxedEnvironment(undefined=DebugUndefined)
         self._env.autoescape = True
@@ -119,7 +120,7 @@ class JinjaTemplateProcessor:
 
         return self._bind_param(key, value)
 
-    def _where_in(self, values: List[Any]) -> str:
+    def _where_in(self, values: list[Any]) -> str:
         results = [self._bind_param("where_in", v) for v in values]
         clause = ",".join(results)
         return f"({clause})"
@@ -137,7 +138,7 @@ class JinjaTemplateProcessor:
 
     def prepare_query(
         self, query: Union[str, Template], **kwargs: Any
-    ) -> Tuple[str, Union[List[Any], Dict[str, Any]]]:
+    ) -> tuple[str, Union[list[Any], dict[str, Any]]]:
         """Prepare a query template
 
         Args:
@@ -154,7 +155,7 @@ class JinjaTemplateProcessor:
 
     def _prepare_query(
         self, template: Template, **kwargs: Any
-    ) -> Tuple[str, Union[List[Any], Dict[str, Any]]]:
+    ) -> tuple[str, Union[list[Any], dict[str, Any]]]:
         kwargs.update(self._context)
         context = validate_context_types(kwargs)
 

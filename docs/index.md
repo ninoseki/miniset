@@ -63,6 +63,14 @@ A placeholder for a bind param can be specified in multiple ways.
 - `pyformat`: where name = `%(name)s` and last_name = `%(last_name)s`.
 - `asyncpg`: where name = `$1` and last_name = `$2`.
 
+!!! note
+
+    You need to escape `%` by `%%` if you want to use `%` literal in your query with `format`. (e.g., `column LIKE '%%blah%%'`)
+
+!!! note
+
+    See [Working Along With SQLAlchemy](#working-along-with-sqlalchemy-v2) to use this library with SQLAlchemy v2.
+
 You can pass the optional constructor argument `param_style` to control the style of query parameter.
 
 ```py
@@ -180,4 +188,39 @@ query, bind_params = p.prepare_query(
 
 ```sql
 SELECT * FROM `projects`
+```
+
+## Working Along With SQLAlchemy v2
+
+You cannot use `format` and `pyformat` param styles with SQLAlchemy v2 because of [this change](https://docs.sqlalchemy.org/en/20/changelog/migration_20.html#execute-method-more-strict-execution-options-are-more-prominent).
+
+Alternatively, you can use `named`, `qmark`, `numeric` and `asyncpg`.
+
+**named**
+
+```py
+p = JinjaTemplateProcessor(param_style="named")
+
+query, bind_params = p.prepare_query(
+    "SELECT * FROM hero WHERE id = {{ id }}",
+    id=1,
+)
+
+with engine.connect() as conn:
+    res = conn.execute(text(query), bind_params)
+```
+
+**others** (`qmark`, `numeric` and `asyncpg`)
+
+```py
+
+p = JinjaTemplateProcessor(param_style="qmark")
+
+query, bind_params = p.prepare_query(
+    "SELECT * FROM hero WHERE id = {{ id }}",
+    id=1,
+)
+
+with engine.connect() as conn:
+    res = conn.exec_driver_sql(query, tuple(bind_params))
 ```

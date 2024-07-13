@@ -1,6 +1,6 @@
 from datetime import date
 from textwrap import dedent
-from typing import Any, Dict, List, Union
+from typing import Any, Union
 
 import pytest
 from jinja2 import DictLoader, Environment
@@ -52,7 +52,7 @@ AND fixed_column = {{session.user_id}}"""
 def test_import(
     template: str,
     expected_query: str,
-    expected_params: Union[List[Any], Dict[Any, Any]],
+    expected_params: Union[list[Any], dict[Any, Any]],
 ):
     loader = DictLoader(
         {
@@ -83,7 +83,7 @@ def test_import(
 def test_include(
     template: str,
     expected_query: str,
-    expected_params: Union[List[Any], Dict[Any, Any]],
+    expected_params: Union[list[Any], dict[Any, Any]],
 ):
     loader = DictLoader(
         {"where_clause.sql": "where project_id = {{request.project_id}}"}
@@ -108,7 +108,7 @@ def test_include(
 def test_precompiled_template(
     template: str,
     expected_query: str,
-    expected_params: Union[List[Any], Dict[Any, Any]],
+    expected_params: Union[list[Any], dict[Any, Any]],
 ):
     p = JinjaTemplateProcessor()
     query, bind_params = p.prepare_query(p._env.from_string(template), **_DATA)
@@ -282,7 +282,7 @@ def test_prepare_query(
     template: str,
     param_style: ParamStyleType,
     expected_query: str,
-    expected_params: Union[List[Any], Dict[Any, Any]],
+    expected_params: Union[list[Any], dict[Any, Any]],
 ):
     p = JinjaTemplateProcessor(param_style=param_style)
     query, params = p.prepare_query(template, **_DATA)
