@@ -1,7 +1,7 @@
 from typing import Optional
 
 import pytest
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.engine import Engine
 from sqlmodel import Field, Session, SQLModel
 
@@ -36,7 +36,22 @@ def heros(session: Session) -> None:
 
 
 @pytest.mark.usefixtures("heros")
-def test_prepare_query(engine: Engine) -> None:
+def test_format(engine: Engine) -> None:
+    p = JinjaTemplateProcessor(param_style="named")
+
+    query, bind_params = p.prepare_query(
+        "SELECT * FROM hero WHERE id = {{ id }}",
+        id=1,
+    )
+
+    with engine.connect() as conn:
+        res = conn.execute(text(query), bind_params)
+        rows = list(res)
+        assert len(rows) == 1
+
+
+@pytest.mark.usefixtures("heros")
+def test_qmark(engine: Engine) -> None:
     p = JinjaTemplateProcessor(param_style="qmark")
 
     query, bind_params = p.prepare_query(
@@ -45,6 +60,6 @@ def test_prepare_query(engine: Engine) -> None:
     )
 
     with engine.connect() as conn:
-        res = conn.execute(query, *bind_params)
+        res = conn.exec_driver_sql(query, tuple(bind_params))
         rows = list(res)
         assert len(rows) == 1

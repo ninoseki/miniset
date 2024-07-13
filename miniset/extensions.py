@@ -1,7 +1,7 @@
 # Forked from https://github.com/sripathikrishnan/jinjasql
 # The original version was created by Sripathi Krishnan and HashedIn Technologies Pvt. Ltd.
 # https://github.com/sripathikrishnan/jinjasql/blob/master/LICENSE
-from typing import Generator, List
+from collections.abc import Generator
 
 from jinja2.ext import Extension
 from jinja2.lexer import Token, TokenStream
@@ -10,7 +10,7 @@ from jinja2.lexer import Token, TokenStream
 class SqlExtension(Extension):
     """SQL extension for Jinja2"""
 
-    def extract_param_name(self, tokens: List[Token]) -> str:
+    def extract_param_name(self, tokens: list[Token]) -> str:
         """Extract param names
 
         Args:
@@ -53,7 +53,7 @@ class SqlExtension(Extension):
         while not stream.eos:
             token = next(stream)
             if token.test("variable_begin"):
-                var_expr: List[Token] = []
+                var_expr: list[Token] = []
 
                 while not token.test("variable_end"):
                     var_expr.append(token)
