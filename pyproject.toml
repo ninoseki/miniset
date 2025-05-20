@@ -28,6 +28,7 @@ default-groups = ["dev", "docs"]
 [dependency-groups]
 dev = [
     "lefthook>=1.11.13",
+    "mypy>=1.15.0",
     "pre-commit>=4.2.0",
     "pytest>=8.3.5",
     "pytest-pretty>=1.2,<2.0",

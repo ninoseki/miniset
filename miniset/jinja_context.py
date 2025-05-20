@@ -120,7 +120,10 @@ class JinjaTemplateProcessor:
 
         return self._bind_param(key, value)
 
-    def _where_in(self, values: list[Any]) -> str:
+    def _where_in(self, values: list[Any], *, null_if_empty: bool = False) -> str:
+        if len(values) == 0 and null_if_empty:
+            return sql_safe("(NULL)")
+
         results = [self._bind_param("where_in", v) for v in values]
         clause = ",".join(results)
         return f"({clause})"
